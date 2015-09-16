@@ -5,34 +5,36 @@
  */
 package javaapplication1;
 
+import java.util.concurrent.Semaphore;
+
 /**
  *
  * @author alokrajiv
  */
-class RunnableDemo implements Runnable {
+class RunnableDemo2 implements Runnable {
    private Thread t;
    private String threadName;
+   private final Semaphore semaphoreObj = new Semaphore(1);
    
-   RunnableDemo( String name){
+   RunnableDemo2( String name){
        threadName = name;
        //System.out.println("Creating " +  threadName );
    }
    @Override
    public void run() {
-      System.out.println("Running " +  threadName );
       try {
-        // Let the thread sleep for a while.
-        if(threadName.equals("Mary"))
-            Thread.sleep(50);
-     } catch (InterruptedException e) {
-         System.out.println("Thread " +  threadName + " interrupted.");
+          semaphoreObj.acquire();
+          System.out.println("Running " +  threadName );
+          semaphoreObj.release();
+          
+     } catch (Exception e) {
+         
      }
-     System.out.println("Thread " +  threadName + " exiting.");
    }
    
    public void start ()
    {
-      System.out.println("Starting " +  threadName );
+      //System.out.println("Starting " +  threadName );
       if (t == null)
       {
          t = new Thread (this, threadName);
@@ -42,13 +44,13 @@ class RunnableDemo implements Runnable {
 
 }
 
-public class TestThread {
+public class TestThreadusingSemaphore {
    public static void main(String args[]) {
    
-      RunnableDemo R1 = new RunnableDemo( "Bob");
+      RunnableDemo2 R1 = new RunnableDemo2( "Bob");
       R1.start();
       
-      RunnableDemo R2 = new RunnableDemo( "Mary");
+      RunnableDemo2 R2 = new RunnableDemo2( "Mary");
       R2.start();
    }   
 }
