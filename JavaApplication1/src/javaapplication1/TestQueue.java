@@ -1,7 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/* 
+ * author: alokrajiv
+ * author-mail: mail@alokrajiv.com
  */
 package javaapplication1;
 
@@ -28,7 +27,7 @@ class Producer implements Runnable{
     public void run() {
         int i = 0;
         while(true){
-            q.set(i++);
+                q.set(i++);
             System.out.println("The produced value"+ i);
         }
             
@@ -54,11 +53,22 @@ class Consumer implements Runnable{
     
 }
 class Queue{
-    private int x;
+    private int x, last;
     synchronized void set(int i){
         x = i;
     }
     synchronized int get(){
+        x++;
+        try{
+            if(last==x)
+              wait();
+        }catch(Exception e){
+            
+        }
+        
         return x;
+    }
+    synchronized int last(){
+        return last;
     }
 }
