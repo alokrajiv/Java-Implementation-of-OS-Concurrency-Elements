@@ -41,7 +41,6 @@ class ProducerConsumerUsingSemaphores_Queue {
         bufferFilledCounter++;
         producerIndex++;
         producerIndex %= bufferSize;
-        notify();
     }
 
     synchronized public int get() {
@@ -49,7 +48,6 @@ class ProducerConsumerUsingSemaphores_Queue {
         bufferFilledCounter--;
         consumerIndex++;
         consumerIndex %= bufferSize;
-        notify();
         return readItem;
     }
 
