@@ -1,12 +1,14 @@
-/* 
- * author: alokrajiv
- * author-mail: mail@alokrajiv.com
- */
+
 package javaapplication1;
+
+/*
+ MIT-LICENSE
+ */
 
 /**
  *
  * @author alokrajiv
+ * @author-mail mail@alokrajiv.com
  */
 public class TestThreadSleepSync {
     public static void main(String[] args){
