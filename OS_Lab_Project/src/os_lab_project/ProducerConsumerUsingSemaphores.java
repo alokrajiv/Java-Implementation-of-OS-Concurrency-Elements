@@ -66,7 +66,7 @@ class ProducerConsumerUsingSemaphores_Producer implements Runnable {
         try {
             for (int i = 0; ; i++) {
                 Thread.sleep(1000);
-                queue_obj.empty_slots.release();
+                queue_obj.empty_slots.acquire();
                 queue_obj.binary_mutex.acquire();
                 queue_obj.put(i);
                 queue_obj.binary_mutex.release();
