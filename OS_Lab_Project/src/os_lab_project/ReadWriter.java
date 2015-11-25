@@ -11,18 +11,18 @@ import java.util.concurrent.Semaphore;
  * @author alokrajiv
  * @author-mail mail@alokrajiv.com
  */
-public class ProducerConsumerUsingSemaphores {
+public class ReadWriter {
 
     public static void main(String[] args) {
-        ProducerConsumerUsingSemaphores_Queue qobject = new ProducerConsumerUsingSemaphores_Queue();
-        Thread consumerthread = new Thread(new ProducerConsumerUsingSemaphores_Consumer(qobject));
-        Thread producerThread = new Thread(new ProducerConsumerUsingSemaphores_Producer(qobject));
+        Database qobject = new Database();
+        Thread consumerthread = new Thread(new ReadWriter_Reader(qobject));
+        Thread producerThread = new Thread(new ReadWriter_Writer(qobject));
         consumerthread.start();
         producerThread.start();
     }
 }
 
-class ProducerConsumerUsingSemaphores_Queue {
+class Database {
     
     int bufferFilledCounter = 0,
             producerIndex = 0,
@@ -53,11 +53,11 @@ class ProducerConsumerUsingSemaphores_Queue {
 
 }
 
-class ProducerConsumerUsingSemaphores_Producer implements Runnable {
+class ReadWriter_Writer implements Runnable {
 
-    ProducerConsumerUsingSemaphores_Queue queue_obj;
+    Database queue_obj;
 
-    ProducerConsumerUsingSemaphores_Producer(ProducerConsumerUsingSemaphores_Queue queobject) {
+    ReadWriter_Writer(Database queobject) {
         queue_obj = queobject;
     }
 
@@ -80,11 +80,11 @@ class ProducerConsumerUsingSemaphores_Producer implements Runnable {
 
 }
 
-class ProducerConsumerUsingSemaphores_Consumer implements Runnable {
+class ReadWriter_Reader implements Runnable {
 
-    ProducerConsumerUsingSemaphores_Queue queue_obj;
+    Database queue_obj;
 
-    ProducerConsumerUsingSemaphores_Consumer(ProducerConsumerUsingSemaphores_Queue queobject) {
+    ReadWriter_Reader(Database queobject) {
         queue_obj = queobject;
     }
 
